@@ -4,6 +4,7 @@ import com.howie.wen.dao.UserDAO;
 import com.howie.wen.model.User;
 import com.howie.wen.service.WendaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,7 +23,8 @@ import java.util.Random;
  */
 @Controller
 public class SettingController {
-    @Autowired
+    @Autowired(required=false)
+    @Qualifier("wendaService")
     WendaService wendaService;
 
     @RequestMapping(path = {"/setting"},method = {RequestMethod.GET})
@@ -32,7 +34,8 @@ public class SettingController {
     }
 
 
-    @Autowired
+    @Autowired(required=false)
+    @Qualifier("userDAO")
     UserDAO userDAO;
 
 
@@ -42,12 +45,12 @@ public class SettingController {
     public String initDatabase() {
         Random random = new Random();
 
-        for(int i = 0 ; i < 11 ; i++){
+        for(int i = 0 ; i < 15 ; i++){
             User user = new User();
             user.setHeadUrl(String.format("http://images.nowcoder.com/head/%dt.png", random.nextInt(1000)));
             user.setName(String.format("USER%d", i));
             user.setPassword("xx");
-            user.setSalt("");
+            user.setSalt("xx");
             userDAO.addUser(user);
 
 //            user.setPassword("xx");
