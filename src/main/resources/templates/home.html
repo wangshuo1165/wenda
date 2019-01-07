@@ -1,0 +1,53 @@
+<html>
+<body>
+<pre>
+    #*
+    你看不到我
+    *#
+    $!{value1}
+    $!{value2}## 如果不存在则强制为空
+    ${value3}
+
+    colors:$!{colors}
+
+    #foreach($color in $colors)
+        This is Color $!{foreach.index} : $color , $!{foreach.count}
+    #end
+
+    #foreach($key in $map.keySet())
+        Number:$key,Value:$map.get($key)
+    #end
+
+    #foreach($kv in $map.entrySet())
+        Number:$kv.key,Value:$kv.value
+    #end
+
+    User:$!{user.name}
+    $!{user.description}
+    $!{user.getDescription()}
+
+    #set($title = "howie")
+    Title:$!{title}
+
+    #parse("header.html")<!--可以进行解析-->
+    Include:#include("header.html")<!--不做模版解析，引用公共的部分，类似于jinja2-->
+
+    #macro(render_color,$index,$color)
+        Color Render Macro $index, $color
+    #end
+
+    #foreach($color in $colors)
+        #render_color($foreach.index,$color)
+    #end
+
+    #set($hello = "hello")
+    #set($helloworld1 = "$!{hello}world")
+    $!hello
+    $helloworld1
+
+
+
+
+</pre>
+</body>
+</html>
