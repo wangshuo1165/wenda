@@ -1,6 +1,8 @@
 package com.howie.wen.controller;
 
+import com.howie.wen.dao.QuestionDAO;
 import com.howie.wen.dao.UserDAO;
+import com.howie.wen.model.Question;
 import com.howie.wen.model.User;
 import com.howie.wen.service.WendaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.Random;
 
 //import org.springframework.util.Assert;
@@ -38,6 +41,9 @@ public class SettingController {
     @Qualifier("userDAO")
     UserDAO userDAO;
 
+    @Autowired(required=false)
+    @Qualifier("questionDAO")
+    QuestionDAO questionDAO;
 
 //	@WebAppConfiguration
     @RequestMapping(path = {"/init"},method = {RequestMethod.GET})
@@ -55,7 +61,15 @@ public class SettingController {
 
 //            user.setPassword("xx");
 //            userDAO.updatePassword(user);
-
+            Question question = new Question();
+            question.setCommentCount(i);
+            Date date = new Date();
+            date.setTime(date.getTime() + 1000 * 3600 * 5 * i);
+            question.setCreatedDate(date);
+            question.setUserId(i + 1);
+            question.setTitle(String.format("TITLE{%d}", i));
+            question.setContent(String.format("Balaababalalalal Content %d", i));
+            questionDAO.addQuestion(question);
 
         }
 

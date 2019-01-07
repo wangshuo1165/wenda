@@ -16,7 +16,9 @@
          as some drivers deny compatibility but still work -->
         <setting name="useGeneratedKeys" value="true"/>
     </settings>
-
+    <mappers>
+        <mapper resource="com.howie.wen.dao/QuestionDao.xml"/>
+    </mappers>
     <!-- Continue going here -->
 
 </configuration>

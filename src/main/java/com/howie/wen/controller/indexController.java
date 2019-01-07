@@ -30,7 +30,7 @@ import java.util.*;
  * @return：直接返回一个字符串而不是模版
  **/
 
-@Controller
+//@Controller
 public class indexController {
     @Autowired
     WendaService wendaService;
