@@ -9,11 +9,11 @@
 
 - **操作系统**:Windows 10
 - **IDE**:IntelliJ IDEA 2018.3
-- JDK Version : JDK1.8 建议使用JDK1.7以上版本
-- Web容器 ： SpringBoot集成的默认容器-Tomcat
-- 数据库 ：Mysql-8.0.13
-- 依赖管理工具 : Maven 管理jar包真的很方便
-- 版本控制: Git
+- **JDK Version** : JDK1.8 建议使用JDK1.7以上版本
+- **Web容器** ： SpringBoot集成的默认容器-Tomcat
+- **数据库** ：Mysql-8.0.13
+- **依赖管理工具** : Maven 管理jar包真的很方便
+- **版本控制**: Git
 
 ## 三.项目的运行
 
