@@ -1,7 +1,20 @@
-# wenda
+# 问答系统
 使用了SSM框架搭建仿知乎问答社区
+##一.项目的来源
+项目是来自牛客网的高级项目课程，对于一个小白来说是全新的技术栈，第一遍跟着做，做完后进行总结。考研初试结束后会进行项目的重构，进行功能的扩展和完善。
 
-## 三.项目问题总结
+##二.项目环境搭建
+- **操作系统**:Windows 10
+- **IDE**:IntelliJ IDEA 2018.3
+- JDK Version : JDK1.8 建议使用JDK1.7以上版本
+- Web容器 ： SpringBoot集成的默认容器-Tomcat
+- 数据库 ：Mysql-8.0.13
+- 依赖管理工具 : Maven 管理jar包真的很方便
+- 版本控制: Git
+
+##三.项目的运行
+xx
+##三.项目问题总结
 
 **1.启动的时候报错显示无法注入（AutoWired）**
 
@@ -178,7 +191,7 @@
     	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:545)
     	... 42 more
 
-**解决方法：**这里我是改了一下注解的方式，手动指定bean
+**解决方法:** 这里我是改了一下注解的方式，手动指定bean
 
     @Autowired(required=false)
     @Qualifier("questionService")
@@ -189,3 +202,31 @@
     @Mapper
     @Component
     @Repository
+    
+##五.项目中的技术点讲解
+xx
+
+##六.项目中的重难点
+
+##七.项目可以完善的地方
+- 用户注册，邮箱激活流程
+- 首页滚动到底部自动加载更多
+- 管理员后台管理(图形化的显示:进行数据分析与图形化显示)
+- 运营推荐问题置顶
+- timeline推拉结合
+- 个性化首页，timeline更多事件
+- 关键词过滤的优化算法
+- 搜索结果排序打分
+- 爬虫覆盖用户，评论，内容去html标签
+- 个性化推荐(优化后的推荐算法)
+- 分布式存储，数据库的分库分表
+- 小程序进行同时显示
+- 模版引擎优化为freemaker或者是Thymeleaf，替代掉Velocity
+- 提高系统的并发量和准确率
+- Ajax进行跨域传输(进行优化)
+- 密码加密加强
+- 争取使用Python中的框架进行二次开发
+- 自定义拦截器(针对ip进行拦截)，限制单点登录
+- 
+
+##七.课下需要做的功课
