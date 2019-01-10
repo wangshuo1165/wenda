@@ -1,11 +1,7 @@
 package com.howie.wen.controller;
 
-import com.howie.wen.model.HostHolder;
-import com.howie.wen.model.Question;
-import com.howie.wen.model.ViewObject;
-import com.howie.wen.service.QuestionService;
-import com.howie.wen.service.UserService;
-import com.howie.wen.service.WendaService;
+import com.howie.wen.model.*;
+import com.howie.wen.service.*;
 import com.howie.wen.util.WendaUtil;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
@@ -15,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.stream.events.Comment;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +39,14 @@ public class QuestionController {
     @Qualifier("userService")
     UserService userService;
 
+    @Autowired(required=false)
+    @Qualifier("commentService")
+    CommentService commentService;
+
+    @Autowired(required=false)
+    @Qualifier("likeService")
+    LikeService likeService;
+
     @RequestMapping(value = "/question/add",method = {RequestMethod.POST})
     @ResponseBody
     public String addQuestion(@RequestParam("title") String title,@RequestParam("content") String content){
@@ -68,11 +72,28 @@ public class QuestionController {
         return WendaUtil.getJSONString(1,"失败");
     }
 
-    @RequestMapping(value = "/question/{qid}")
+    @RequestMapping(value = "/question/{qid}", method = {RequestMethod.GET})
     public String questionDetail(Model model, @PathVariable("qid") int qid) {
         Question question = questionService.getById(qid);
         model.addAttribute("question", question);
-        model.addAttribute("user",userService.getUser(question.getUserId()));
+
+        List<Comment> commentList = commentService.getCommentsByEntity(qid, EntityType.ENTITY_QUESTION);
+        List<ViewObject> comments = new ArrayList<ViewObject>();
+        for (Comment comment : commentList) {
+            ViewObject vo = new ViewObject();
+            vo.set("comment", comment);
+            if (hostHolder.getUser() == null) {
+                vo.set("liked", 0);
+            } else {
+                vo.set("liked", likeService.getLikeStatus(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT, comment.getId()));
+            }
+
+            vo.set("likeCount", likeService.getLikeCount(EntityType.ENTITY_COMMENT, comment.getId()));
+            vo.set("user", userService.getUser(comment.getUserId()));
+            comments.add(vo);
+        }
+
+        model.addAttribute("comments", comments);
         return "detail";
     }
 }
