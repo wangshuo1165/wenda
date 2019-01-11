@@ -1,5 +1,8 @@
 package com.howie.wen.controller;
 
+import com.howie.wen.async.EventModel;
+import com.howie.wen.async.EventProducer;
+import com.howie.wen.async.EventType;
 import com.howie.wen.dao.UserDAO;
 import com.howie.wen.service.UserService;
 import org.apache.commons.lang.StringUtils;
@@ -33,6 +36,9 @@ public class LoginController {
     @Qualifier("userService")
     private UserService userService;
 
+    @Autowired(required=false)
+    @Qualifier("eventProducer")
+    EventProducer eventProducer;
 
     @RequestMapping(path = {"/reg"}, method = {RequestMethod.POST})
     public String reg(Model model, @RequestParam("username") String username,
@@ -49,6 +55,9 @@ public class LoginController {
                     cookie.setMaxAge(3600*24*5);
                 }
                 response.addCookie(cookie);
+
+
+
                 if (StringUtils.isNotBlank(next)) {
                     return "redirect:" + next ;
                 }
@@ -75,40 +84,43 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(path = {"/login"}, method = {RequestMethod.POST,RequestMethod.GET})
-    public String login(Model model,
-                        @RequestParam("password") String username,
+    @RequestMapping(path = {"/login/"}, method = {RequestMethod.POST})
+    public String login(Model model, @RequestParam("username") String username,
                         @RequestParam("password") String password,
-                        @RequestParam(value = "next",required = false) String next,
+                        @RequestParam(value="next", required = false) String next,
                         @RequestParam(value="rememberme", defaultValue = "false") boolean rememberme,
                         HttpServletResponse response) {
-
-
         try {
-            Map<String,String> map = userService.login(username,password);
-            if(map.containsKey("ticket")){
-                Cookie cookie = new Cookie("ticket",map.get("ticket"));
+            Map<String, Object> map = userService.login(username, password);
+            if (map.containsKey("ticket")) {
+                Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
                 cookie.setPath("/");
+                if (rememberme) {
+                    cookie.setMaxAge(3600*24*5);
+                }
                 response.addCookie(cookie);
+
+                eventProducer.fireEvent(new EventModel(EventType.LOGIN)
+                        .setExt("username", username).setExt("email", "879514453@qq.com")
+                        .setActorId((int)map.get("userId")));
+
                 if (StringUtils.isNotBlank(next)) {
-                    return "redirect:" + next ;
+                    return "redirect:" + next;
                 }
                 return "redirect:/";
-            }else{
-                model.addAttribute("msg",map.get("msg"));
+            } else {
+                model.addAttribute("msg", map.get("msg"));
                 return "login";
             }
-        }catch (Exception e) {
-            //logger.error("注册异常" + e.getMessage());
-            model.addAttribute("msg", "服务器错误");
+
+        } catch (Exception e) {
+            //logger.error("登陆异常" + e.getMessage());
             return "login";
         }
-        //return "index";
     }
     @RequestMapping(path = {"/logout"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String logout(@CookieValue("ticket") String ticket) {
         userService.logout(ticket);
         return "redirect:/";
     }
-
 }

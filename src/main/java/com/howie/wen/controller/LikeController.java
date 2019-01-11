@@ -1,5 +1,8 @@
 package com.howie.wen.controller;
 
+import com.howie.wen.async.EventModel;
+import com.howie.wen.async.EventProducer;
+import com.howie.wen.async.EventType;
 import com.howie.wen.model.Comment;
 import com.howie.wen.model.EntityType;
 import com.howie.wen.model.HostHolder;
@@ -34,9 +37,9 @@ public class LikeController {
     @Qualifier("commentService")
     CommentService commentService;
 
-//    @Autowired(required=false)
-//    @Qualifier("eventProducer")
-//    EventProducer eventProducer;
+    @Autowired(required=false)
+    @Qualifier("eventProducer")
+    EventProducer eventProducer;
 
     @RequestMapping(path = {"/like"}, method = {RequestMethod.POST})
     @ResponseBody
@@ -45,12 +48,12 @@ public class LikeController {
             return WendaUtil.getJSONString(999);
         }
 
-//        Comment comment = commentService.getCommentById(commentId);
-//
-//        eventProducer.fireEvent(new EventModel(EventType.LIKE)
-//                .setActorId(hostHolder.getUser().getId()).setEntityId(commentId)
-//                .setEntityType(EntityType.ENTITY_COMMENT).setEntityOwnerId(comment.getUserId())
-//                .setExt("questionId", String.valueOf(comment.getEntityId())));
+        Comment comment = commentService.getCommentById(commentId);
+
+        eventProducer.fireEvent(new EventModel(EventType.LIKE)
+                .setActorId(hostHolder.getUser().getId()).setEntityId(commentId)
+                .setEntityType(EntityType.ENTITY_COMMENT).setEntityOwnerId(comment.getUserId())
+                .setExt("questionId", String.valueOf(comment.getEntityId())));
 
         long likeCount = likeService.like(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT, commentId);
         return WendaUtil.getJSONString(0, String.valueOf(likeCount));
