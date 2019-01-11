@@ -26,7 +26,7 @@ public class LoginExceptionHandler implements EventHandler {
         // xxxx判断发现这个用户登陆异常
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("username", model.getExt("username"));
-        mailSender.sendWithHTMLTemplate(model.getExt("email"), "登录提醒", "templates/mails/login_exception.html", map);
+        mailSender.sendWithHTMLTemplate(model.getExt("email"), "Login Reminder", "templates/mails/login_exception.html", map);
     }
 
     @Override
