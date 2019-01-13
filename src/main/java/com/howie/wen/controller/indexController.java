@@ -34,12 +34,12 @@ import java.util.*;
 public class indexController {
     @Autowired
     WendaService wendaService;
-
-    @RequestMapping(path = {"/","/index"},method = {RequestMethod.GET})
-    @ResponseBody
-    public String index(HttpSession httpSession){
-        return wendaService.getMessage(2) + "Hello Howie " + httpSession.getAttribute("msg");
-    }
+//
+//    @RequestMapping(path = {"/","/index"},method = {RequestMethod.GET})
+//    @ResponseBody
+//    public String index(HttpSession httpSession){
+//        return wendaService.getMessage(2) + "Hello Howie " + httpSession.getAttribute("msg");
+//    }
     /**
      * @Author HowieLee
      * @Description //设置一个profile页，将userId可以解析出来,后面为请求参数的形式来传递

@@ -43,6 +43,10 @@ public class QuestionService {
         return questionDAO.selectLatestQuestions(userId, offset, limit);
     }
 
+    public List<Question> getsearchquestion(String userId, int offset, int limit) {
+        return questionDAO.selectsearchquestion(userId, offset, limit);
+    }
+
     public int updateCommentCount(int id, int count) {
         return questionDAO.updateCommentCount(id, count);
     }

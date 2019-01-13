@@ -1,5 +1,7 @@
 package com.howie.wen.dao;
 
+import com.howie.wen.model.Comment;
+import com.howie.wen.model.Message;
 import com.howie.wen.model.Question;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
@@ -30,6 +32,17 @@ public interface QuestionDAO {
 
     @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where id=#{id}"})
     Question getById(int id);
+
+
+//    @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where id=#{id}"})
+//    List<Question> getConversationList(@Param("userId") String userId,
+//                                      @Param("offset") int offset, @Param("limit") int limit);
+
+
+    @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where title like CONCAT('%',#{q},'%')"})
+    List<Question> selectsearchquestion(@Param("q") String q,
+                                        @Param("offset") int offset, @Param("limit") int limit);
+
 
     @Update({"update ", TABLE_NAME, " set comment_count = #{commentCount} where id=#{id}"})
     int updateCommentCount(@Param("id") int id, @Param("commentCount") int commentCount);

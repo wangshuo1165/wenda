@@ -60,12 +60,45 @@ public class HomeController {
         return vos;
     }
 
+
+    private List<ViewObject> getSearchQuestions(int Id, int offset, int limit) {
+        List<Question> questionList = questionService.getLatestQuestions(Id, offset, limit);
+        List<ViewObject> vos = new ArrayList<>();
+        for (Question question : questionList) {
+            ViewObject vo = new ViewObject();
+            vo.set("question", question);
+            vo.set("followCount", followService.getFollowerCount(EntityType.ENTITY_QUESTION, question.getId()));
+            vo.set("user", userService.getUser(question.getUserId()));
+            vos.add(vo);
+        }
+        return vos;
+    }
+
     @RequestMapping(path = {"/", "/index"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String index(Model model,
                         @RequestParam(value = "pop", defaultValue = "0") int pop) {
-        model.addAttribute("vos", getQuestions(0, 0, 10));
+        model.addAttribute("vos", getQuestions(0, 0, 20));
         return "index";
     }
+
+
+    @RequestMapping(path = {"/search"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String regloginPage(Model model, @RequestParam(value = "q", required = false) String q) {
+        List<Question> question = questionService.getsearchquestion(q,0,15);
+        List<ViewObject> questionss = new ArrayList<>();
+        for (Question questio : question) {
+            ViewObject vo = new ViewObject();
+            vo.set("question", questio);
+            vo.set("followCount", followService.getFollowerCount(EntityType.ENTITY_QUESTION, questio.getId()));
+            //System.out.println(questio.getId());
+            vo.set("user", userService.getUser(questio.getUserId()));
+            questionss.add(vo);
+        }
+        model.addAttribute("questionss",questionss);
+        return "SearchPage";
+    }
+
+
 
     @RequestMapping(path = {"/user/{userId}"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String userIndex(Model model, @PathVariable("userId") int userId) {
