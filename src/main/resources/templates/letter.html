@@ -25,11 +25,11 @@
                 $conversation.unread
                 </span>
                 <a class="list-head">
-                <img alt="头像" src="$conversation.user.headUrl">
+                <img alt="头像" src="$conversation.user.headUrl" href="/user/$conversation.user.id">
                 </a>
                 </div>
                 <div class="letter-detail">
-                <a title="$conversation.user.name" class="letter-name level-color-1">
+                <a title="$conversation.user.name" class="letter-name level-color-1"  href="/user/$conversation.user.id">
                     $conversation.user.name
                 </a>
                 <p class="letter-brief">
