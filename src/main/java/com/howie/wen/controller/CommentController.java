@@ -41,6 +41,15 @@ public class CommentController {
     QuestionService questionService;
 
 
+
+    /**
+     * @Author HowieLee
+     * @Description //TODO 增加评论
+     * @Date 20:53 1/14/2019
+     * @Param
+     * @return
+     **/
+
     @RequestMapping(path = {"/addComment"}, method = {RequestMethod.POST})
     public String addComment(@RequestParam("questionId") int questionId,
                              @RequestParam("content") String content) {

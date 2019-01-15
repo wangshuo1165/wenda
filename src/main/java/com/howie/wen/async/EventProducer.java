@@ -19,6 +19,14 @@ public class EventProducer {
     @Qualifier("jedisAdapter")
     JedisAdapter jedisAdapter;
 
+    /**
+     * @Author HowieLee
+     * @Description //TODO 事件的生产者
+     * @Date 20:48 1/14/2019
+     * @Param 
+     * @return 
+     **/
+    
     public boolean fireEvent(EventModel eventModel) {
         try {
             String json = JSONObject.toJSONString(eventModel);

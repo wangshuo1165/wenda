@@ -14,7 +14,7 @@
         <if test="userId != 0">
             WHERE user_id = #{userId}
         </if>
-        ORDER BY id DESC
+        ORDER BY comment_count DESC
         LIMIT #{offset},#{limit}
     </select>
 </mapper>

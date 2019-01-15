@@ -12,6 +12,14 @@ public class RedisKeyUtil {
     private static String BIZ_FOLLOWEE = "FOLLOWEE";
     private static String BIZ_TIMELINE = "TIMELINE";
 
+    /**
+     * @Author HowieLee
+     * @Description //TODO 用来生成唯一的redis名字，防止冲突
+     * @Date 21:12 1/14/2019
+     * @Param 
+     * @return 
+     **/
+    
     public static String getLikeKey(int entityType, int entityId) {
         return BIZ_LIKE + SPLIT + String.valueOf(entityType) + SPLIT + String.valueOf(entityId);
     }

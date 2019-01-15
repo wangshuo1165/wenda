@@ -6,6 +6,14 @@ package com.howie.wen.async;
  * @Description:com.howie.wen.async
  * @version:1.0
  */
+/**
+ * @Author HowieLee
+ * @Description //TODO 定义实体的类型
+ * @Date 20:48 1/14/2019
+ * @Param 
+ * @return 
+ **/
+
 public enum EventType {
     LIKE(0),
     COMMENT(1),

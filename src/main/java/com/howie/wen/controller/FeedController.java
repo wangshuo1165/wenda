@@ -41,6 +41,14 @@ public class FeedController {
     @Qualifier("jedisAdapter")
     JedisAdapter jedisAdapter;
 
+    /**
+     * @Author HowieLee
+     * @Description //TODO 推拉的feed流
+     * @Date 20:53 1/14/2019
+     * @Param
+     * @return
+     **/
+
     @RequestMapping(path = {"/pushfeeds"}, method = {RequestMethod.GET, RequestMethod.POST})
     private String getPushFeeds(Model model) {
         int localUserId = hostHolder.getUser() != null ? hostHolder.getUser().getId() : 0;

@@ -32,7 +32,14 @@ public class LikeHandler implements EventHandler {
     @Autowired(required=false)
     @Qualifier("userService")
     UserService userService;
-
+    /**
+     * @Author HowieLee
+     * @Description //TODO 这个为针对点赞的handler
+     * @Date 20:39 1/14/2019
+     * @Param 
+     * @return 
+     **/
+    
     @Override
     public void doHandle(EventModel model) {
         Message message = new Message();

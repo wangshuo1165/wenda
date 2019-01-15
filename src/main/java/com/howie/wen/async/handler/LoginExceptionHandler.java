@@ -20,7 +20,14 @@ public class LoginExceptionHandler implements EventHandler {
     @Autowired(required=false)
     @Qualifier("mailSender")
     MailSender mailSender;
-
+    /**
+     * @Author HowieLee
+     * @Description //TODO 针对登录之后邮件提醒的handler
+     * @Date 21:08 1/14/2019
+     * @Param 
+     * @return 
+     **/
+    
     @Override
     public void doHandle(EventModel model) {
         // xxxx判断发现这个用户登陆异常

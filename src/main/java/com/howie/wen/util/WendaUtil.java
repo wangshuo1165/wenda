@@ -28,6 +28,14 @@ public class WendaUtil {
         return json.toJSONString();
     }
 
+    /**
+     * @Author HowieLee
+     * @Description //TODO 转化为JSON对象
+     * @Date 21:13 1/14/2019
+     * @Param 
+     * @return 
+     **/
+    
     public static String getJSONString(int code, Map<String, Object> map) {
         JSONObject json = new JSONObject();
         json.put("code", code);
@@ -38,6 +46,14 @@ public class WendaUtil {
     }
 
 
+    /**
+     * @Author HowieLee
+     * @Description //TODO MD5的函数
+     * @Date 21:12 1/14/2019
+     * @Param 
+     * @return 
+     **/
+    
     public static String MD5(String key) {
         char hexDigits[] = {
                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'

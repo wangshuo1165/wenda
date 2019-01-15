@@ -8,6 +8,14 @@ import java.util.List;
  * @Description:com.howie.wen.async
  * @version:1.0
  */
+/**
+ * @Author HowieLee
+ * @Description //TODO 定义一个统一的接口
+ * @Date 20:47 1/14/2019
+ * @Param 
+ * @return 
+ **/
+
 public interface EventHandler {
 
     void doHandle(EventModel model);

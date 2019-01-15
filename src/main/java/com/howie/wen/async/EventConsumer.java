@@ -36,6 +36,13 @@ public class EventConsumer implements InitializingBean ,ApplicationContextAware{
     @Autowired(required=false)
     @Qualifier("jedisAdapter")
     JedisAdapter jedisAdapter;
+    /**
+     * @Author HowieLee
+     * @Description //TODO 消费者函数
+     * @Date 20:46 1/14/2019
+     * @Param
+     * @return
+     **/
 
     @Override
     public void afterPropertiesSet() throws Exception {

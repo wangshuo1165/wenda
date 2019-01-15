@@ -19,6 +19,7 @@ import java.util.List;
 
 @Component
 public class FollowHandler implements EventHandler {
+    //autowired为自动注入
     @Autowired(required=false)
     @Qualifier("messageService")
     MessageService messageService;
@@ -26,7 +27,14 @@ public class FollowHandler implements EventHandler {
     @Autowired(required=false)
     @Qualifier("userService")
     UserService userService;
-
+    /**
+     * @Author HowieLee
+     * @Description //TODO 这个为针对关注用户的handler
+     * @Date 20:39 1/14/2019
+     * @Param 
+     * @return 
+     **/
+    
     @Override
     public void doHandle(EventModel model) {
         Message message = new Message();

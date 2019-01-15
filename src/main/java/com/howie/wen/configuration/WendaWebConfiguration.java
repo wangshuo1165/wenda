@@ -26,11 +26,20 @@ public class WendaWebConfiguration extends WebMvcConfigurerAdapter {
     LoginRequiredInterceptor loginRequiredInterceptor;
 
 
+    /**
+     * @Author HowieLee
+     * @Description //TODO 定义的拦截器，addPathPattern为增加，execlude为排除掉
+     * @Date 20:49 1/14/2019
+     * @Param
+     * @return
+     **/
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(passportInterceptor);
         registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/user/*");
         registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/question/*");
+        registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/search*");
         super.addInterceptors(registry);
     }
 }
